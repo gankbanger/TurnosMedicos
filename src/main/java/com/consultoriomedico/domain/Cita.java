@@ -2,22 +2,18 @@ package com.consultoriomedico.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
-import lombok.experimental.SuperBuilder;
+import lombok.EqualsAndHashCode;
 
-import java.sql.Time;
-import java.time.LocalDate;
 import java.util.Date;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
-@SuperBuilder
-@ToString(callSuper = true)
+@AllArgsConstructor
 public class Cita extends Entidad {
 
-    private int idCita;
-    private int idPaciente;
-    private int idDoctor;
+    private Paciente paciente;
+    private Doctor doctor;
     private Date fecha;
+    private int duracionMinutos;
 
 }

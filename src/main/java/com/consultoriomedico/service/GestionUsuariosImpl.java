@@ -2,18 +2,38 @@ package com.consultoriomedico.service;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 
 import com.consultoriomedico.domain.*;
+import com.consultoriomedico.repository.RepoUsuarios;
 import com.consultoriomedico.repository.RepoUsuariosImpl;
+
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import org.apache.log4j.Logger;
 
 
-@Builder
+@AllArgsConstructor
 public class GestionUsuariosImpl implements GestionUsuarios {
     public static final Logger log = Logger.getLogger(GestionUsuariosImpl.class);
+
+    private RepoUsuarios repoUsuarios;
+    public List<Doctor> listarDoctores() {
+        return repoUsuarios.listarDoctores();
+    }
+
+    public List<Paciente> buscarPaciente(String email, String telefono) {
+        List<Paciente> pacientes = repoUsuarios.listarPacientes();
+        List<Paciente> encontrados = new ArrayList<>();
+        for (Paciente paciente : pacientes) {
+            if (paciente.getTelefono().equals(telefono) || paciente.getEmail().equals(email)) {
+                encontrados.add(paciente);
+            }
+        }
+        return encontrados;
+    }
 
     public void crearUsuario() {
         log.info("[GestionUsuariosImpl][crearUsuario] Inicio de llamada creación usuario");
@@ -117,7 +137,7 @@ public class GestionUsuariosImpl implements GestionUsuarios {
         System.out.println("Por favor introduce el id a buscar: ");
         int id = sc.nextInt();
         log.info(String.format("[GestionUsuariosImpl][buscarUsuarioPorId] Buscando usuario por ID: %s", id));
-        Usuario usuario = RepoUsuariosImpl.builder().build().buscarPorId(id);
+        Persona usuario = RepoUsuariosImpl.builder().build().buscarPorId(id);
         if (usuario != null) {
             System.out.println("Se encontró el siguiente Usuario con ese id: \n" + usuario);
         } else {

@@ -2,7 +2,7 @@ package com.consultoriomedico.repository;
 
 import com.consultoriomedico.domain.Cita;
 import com.consultoriomedico.domain.PropertiesConfig;
-import com.consultoriomedico.domain.Usuario;
+import com.consultoriomedico.domain.Persona;
 import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.type.PhoneNumber;
@@ -25,7 +25,7 @@ public class SmsSender implements IConfirmadorCitas {
         }
     }
 
-    public boolean enviarConfirmacion(Usuario usuario, Cita cita) {
+    public boolean enviarConfirmacion(Persona usuario, Cita cita) {
         //TODO: IMPLEMENTAR ENVIAR CONFIMACION
         return true;
     }

@@ -6,10 +6,8 @@ import lombok.experimental.SuperBuilder;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-@SuperBuilder
-public class Usuario extends Entidad {
-
-    private boolean flagDoctor;
+public class Persona extends Entidad {
+    private String titulo;
     private String nombre;
     private String direccion;
     private String telefono;

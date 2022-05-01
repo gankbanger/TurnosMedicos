@@ -3,9 +3,12 @@ package com.consultoriomedico.service;
 import com.consultoriomedico.domain.Cita;
 import com.consultoriomedico.domain.Doctor;
 import com.consultoriomedico.domain.Paciente;
-import com.consultoriomedico.domain.Usuario;
+import com.consultoriomedico.domain.Persona;
+import com.consultoriomedico.repository.RepoCitas;
 import com.consultoriomedico.repository.RepoCitasImpl;
 import com.consultoriomedico.repository.RepoUsuariosImpl;
+
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import org.apache.log4j.Logger;
 
@@ -13,20 +16,23 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-@Builder
+@AllArgsConstructor
 public class GestionCitasImpl implements GestionCitas {
 
-    public static final Logger log = Logger.getLogger(GestionCitasImpl.class);
-    private static final DateFormat dt1 = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+    private RepoCitas repoCitas;
 
-    public void crearCita() {
-        log.info("[GestionUsuariosImpl][crearUsuario] Inicio de llamada creación usuario");
-        try {
-            obtenerDatos();
-        } catch (Exception ex) {
-            log.error(ex.toString());
-        }
+    @Override
+    public void crearCita(Doctor doctor, Paciente paciente, Date fecha) {
+        Cita cita = new Cita(paciente.getId(), doctor.getId(), fecha);
+        repoCitas.grabar(cita);
     }
+
+    @Override
+    public List<Cita> obtenerCitas(Doctor doctor) {
+        return repoCitas.listarCitasPorDoctor(doctor);
+    }
+
+    
 
     public void obtenerDatos() {
         Scanner sc = new Scanner(System.in);
@@ -48,7 +54,7 @@ public class GestionCitasImpl implements GestionCitas {
             int idPa = sc.nextInt();
             sc.nextLine();
 
-            Usuario idPaciente = RepoUsuariosImpl.builder().build().buscarPorId(idPa);
+            Persona idPaciente = RepoUsuariosImpl.builder().build().buscarPorId(idPa);
 
             if (idPaciente != null && !idPaciente.isFlagDoctor()){
                 System.out.println("Por favor ingrese la fecha de la cita en el formato: yyyy-mm-dd");
@@ -107,4 +113,6 @@ public class GestionCitasImpl implements GestionCitas {
             System.out.printf("No se encuentra paciente con el id: %s", idPaciente);
         }
     }
+
+    
 }

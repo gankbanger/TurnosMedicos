@@ -13,8 +13,8 @@ public interface RepoCitas {
 
     List<Cita> listarCitasPorPaciente(Paciente paciente);
 
-    Usuario buscar(Long id);
+    Persona buscar(Long id);
 
-    void sendMailConfirmation(Usuario usuario);
+    void sendMailConfirmation(Persona usuario);
 
 }

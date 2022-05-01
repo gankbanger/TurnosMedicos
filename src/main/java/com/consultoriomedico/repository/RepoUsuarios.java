@@ -2,7 +2,7 @@ package com.consultoriomedico.repository;
 
 import com.consultoriomedico.domain.Doctor;
 import com.consultoriomedico.domain.Paciente;
-import com.consultoriomedico.domain.Usuario;
+import com.consultoriomedico.domain.Persona;
 
 import java.util.List;
 
@@ -14,6 +14,6 @@ public interface RepoUsuarios {
 
     List<Paciente> listarPacientes();
 
-    Usuario buscarPorId(int id);
+    Persona buscarPorId(int id);
 
 }

@@ -2,7 +2,7 @@ package com.consultoriomedico.repository;
 
 import com.consultoriomedico.domain.Doctor;
 import com.consultoriomedico.domain.Paciente;
-import com.consultoriomedico.domain.Usuario;
+import com.consultoriomedico.domain.Persona;
 
 import java.io.*;
 import java.text.DateFormat;
@@ -23,7 +23,7 @@ public class RepoUsuariosImpl implements RepoUsuarios {
 
     public void grabar(Object object) {
         log.info("[RepoUsuariosImpl][grabar] Inicio de llamada grabación usuario");
-        Usuario usuario;
+        Persona usuario;
         if (object instanceof Paciente paciente) {
             usuario = Paciente.builder().id(paciente.getId())
                     .creadoEn(paciente.getCreadoEn())
@@ -79,7 +79,7 @@ public class RepoUsuariosImpl implements RepoUsuarios {
         }
     }
 
-    public static void sendMailConfirmation(Usuario usuario) {
+    public static void sendMailConfirmation(Persona usuario) {
         try {
             log.info("[RepoUsuariosImpl][sendMail] Enviando correo de confirmación");
             EmailSender sender = EmailSender.builder().build();
@@ -161,15 +161,15 @@ public class RepoUsuariosImpl implements RepoUsuarios {
         return listDoctoresEspecialidad;
     }
 
-    public Usuario buscarPorId(int id) {
-        Usuario usuario = null;
+    public Persona buscarPorId(int id) {
+        Persona usuario = null;
         if (new File(USUARIO_TXT).exists()) {
             try (BufferedReader usuarioTxt = new BufferedReader(new FileReader((USUARIO_TXT)))) {
                 String line;
                 while ((line = usuarioTxt.readLine()) != null) {
                     String[] partesDeUsuario = line.split(";");
                     if (partesDeUsuario.length > 1 && id == Integer.parseInt(partesDeUsuario[0])) {
-                        usuario = Usuario.builder()
+                        usuario = Persona.builder()
                                 .id(Integer.parseInt(partesDeUsuario[0]))
                                 .creadoEn(dt1.parse(partesDeUsuario[1]))
                                 .flagDoctor(Integer.parseInt(partesDeUsuario[2]) == 1)

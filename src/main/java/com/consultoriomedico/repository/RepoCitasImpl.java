@@ -3,7 +3,7 @@ package com.consultoriomedico.repository;
 import com.consultoriomedico.domain.Cita;
 import com.consultoriomedico.domain.Doctor;
 import com.consultoriomedico.domain.Paciente;
-import com.consultoriomedico.domain.Usuario;
+import com.consultoriomedico.domain.Persona;
 import lombok.Builder;
 import org.apache.log4j.Logger;
 
@@ -115,11 +115,11 @@ public class RepoCitasImpl implements RepoCitas {
 
     }
 
-    public Usuario buscar(Long id) {
+    public Persona buscar(Long id) {
         return null;
     }
 
-    public void sendMailConfirmation(Usuario usuario) {
+    public void sendMailConfirmation(Persona usuario) {
         try {
             log.info("[RepoCitaImpl][sendMail] Enviando correo de confirmación");
             EmailSender sender = EmailSender.builder().build();

@@ -3,7 +3,7 @@ package com.consultoriomedico.repository;
 
 import com.consultoriomedico.domain.Cita;
 import com.consultoriomedico.domain.PropertiesConfig;
-import com.consultoriomedico.domain.Usuario;
+import com.consultoriomedico.domain.Persona;
 import lombok.Builder;
 import org.apache.log4j.Logger;
 import org.jsoup.Jsoup;
@@ -27,7 +27,7 @@ public class EmailSender implements IConfirmadorCitas {
 
     private static String senderEmail = "clinicakodigo@gmail.com";
 
-    public void sendMail(Usuario usuario, String subject) {
+    public void sendMail(Persona usuario, String subject) {
         PropertiesConfig properties = new PropertiesConfig();
         Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.gmail.com");
@@ -69,7 +69,7 @@ public class EmailSender implements IConfirmadorCitas {
         }
     }
 
-    private String modifiedHtmlConfirmation(Usuario usuario) throws IOException {
+    private String modifiedHtmlConfirmation(Persona usuario) throws IOException {
         File flHtml = new File(MAIL_CONFIRMATION_PATH);
         Document doc = Jsoup.parse(flHtml, "UTF-8", "");
         Element p = doc.getElementById("idNombre");
@@ -91,7 +91,7 @@ public class EmailSender implements IConfirmadorCitas {
         return doc.html();
     }
 
-    public boolean enviarConfirmacion(Usuario usuario, Cita cita) {
+    public boolean enviarConfirmacion(Persona usuario, Cita cita) {
         //TODO: IMPLEMENTAR ENVIAR CONFIMACION
         return true;
     }
